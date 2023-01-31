@@ -228,3 +228,16 @@ func SetDefaults_NetworkOverheadArgs(obj *NetworkOverheadArgs) {
 		obj.NetworkTopologyName = &DefaultNetworkTopologyName
 	}
 }
+
+// SetDefaults_NetworkTrafficArgs sets the default parameters for the NetworkTraffic plugin
+func SetDefaults_NetworkTrafficArgs(args *NetworkTrafficArgs) {
+	if args.TimeRangeInMinutes == nil {
+		defaultTime := int64(5)
+		args.TimeRangeInMinutes = &defaultTime
+	}
+
+	if args.NetworkInterface == nil || *args.NetworkInterface == "" {
+		netInterface := "eth0"
+		args.NetworkInterface = &netInterface
+	}
+}
