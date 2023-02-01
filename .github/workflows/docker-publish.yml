@@ -21,8 +21,39 @@ env:
 
 
 jobs:
-  build:
+  build-bin:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch:
+          - amd64
+          - arm64v8
+    steps:
+      - uses: actions/checkout@v3
 
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+      
+      - name: Set release version
+        id: release_version
+        run: |
+          echo RELEASE_VERSION=v$(date +%Y%m%d-${GITHUB_SHA::7}) >> $GITHUB_ENV
+
+      - name: Build
+        env:
+          COMMONENVVAR: GOOS=linux
+          BUILDENVVAR: CGO_ENABLED=0
+        run: make build-scheduler.${{ matrix.arch }}
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: kube-scheduler
+          path: bin/kube-scheduler
+
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
