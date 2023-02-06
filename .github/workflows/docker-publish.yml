@@ -23,6 +23,12 @@ env:
 jobs:
   build-bin:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
     strategy:
       matrix:
         arch:
@@ -47,11 +53,12 @@ jobs:
           BUILDENVVAR: CGO_ENABLED=0
         run: make build-scheduler.${{ matrix.arch }}
 
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.2
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: kube-scheduler
-          path: bin/kube-scheduler
+          args: 'bin/kube-scheduler*'
 
   build:
     runs-on: ubuntu-latest
