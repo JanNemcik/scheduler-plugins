@@ -32,7 +32,7 @@ jobs:
     strategy:
       matrix:
         arch:
-          - amd64
+          # - amd64
           - arm64v8
     steps:
       - uses: actions/checkout@v3
@@ -53,12 +53,20 @@ jobs:
           BUILDENVVAR: CGO_ENABLED=0
         run: make build-scheduler.${{ matrix.arch }}
 
-      - name: Create a Release
-        uses: elgohr/Github-Release-Action@v4
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          title: MyReleaseMessage
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          # body: |
+          #   Changes in this Release
+          #   - First Change
+          #   - Second Change
+          draft: false
+          prerelease: false
 
       - name: Upload the artifacts
         uses: skx/github-action-publish-binaries@master
