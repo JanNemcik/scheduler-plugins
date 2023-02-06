@@ -53,6 +53,13 @@ jobs:
           BUILDENVVAR: CGO_ENABLED=0
         run: make build-scheduler.${{ matrix.arch }}
 
+      - name: Create a Release
+        uses: elgohr/Github-Release-Action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          title: MyReleaseMessage
+
       - name: Upload the artifacts
         uses: skx/github-action-publish-binaries@master
         env:
