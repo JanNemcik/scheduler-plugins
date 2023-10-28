@@ -3,6 +3,7 @@ package networktraffic
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	v1 "k8s.io/api/core/v1"
@@ -50,6 +51,22 @@ func (n *NetworkTraffic) Score(ctx context.Context, state *framework.CycleState,
 	if err != nil {
 		return 0, framework.NewStatus(framework.Error, fmt.Sprintf("error getting node bandwidth measure: %s", err))
 	}
+	nodeLoad, err := n.prometheus.GetNode1mLoadMeasure(nodeName)
+	if err != nil {
+		return 0, framework.NewStatus(framework.Error, fmt.Sprintf("error getting node bandwidth measure: %s", err))
+	}
+	nodeActualMem, err := n.prometheus.GetNodeActualMemoryMeasure(nodeName)
+	if err != nil {
+		return 0, framework.NewStatus(framework.Error, fmt.Sprintf("error getting node bandwidth measure: %s", err))
+	}
+
+	klog.Infoln("annotations: ", p.Annotations, p.Labels)
+	for k, v := range p.Annotations {
+		if strings.HasPrefix(k, "v2x.context") {
+
+		}
+	}
+	klog.Infoln("node acutal mem: ", nodeActualMem.Value, "; node load: ", nodeLoad.Value)
 
 	klog.Infof("[NetworkTraffic] node '%s' bandwidth: %s", nodeName, nodeBandwidth.Value)
 	return int64(nodeBandwidth.Value), nil

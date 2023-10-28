@@ -360,13 +360,13 @@ func (sched *Scheduler) schedulePod(ctx context.Context, fwk framework.Framework
 	}
 
 	// When only one node after predicate, just use it.
-	if len(feasibleNodes) == 1 {
-		return ScheduleResult{
-			SuggestedHost:  feasibleNodes[0].Name,
-			EvaluatedNodes: 1 + len(diagnosis.NodeToStatusMap),
-			FeasibleNodes:  1,
-		}, nil
-	}
+	// if len(feasibleNodes) == 1 {
+	// 	return ScheduleResult{
+	// 		SuggestedHost:  feasibleNodes[0].Name,
+	// 		EvaluatedNodes: 1 + len(diagnosis.NodeToStatusMap),
+	// 		FeasibleNodes:  1,
+	// 	}, nil
+	// }
 
 	priorityList, err := prioritizeNodes(ctx, sched.Extenders, fwk, state, pod, feasibleNodes)
 	if err != nil {

@@ -88,11 +88,18 @@ Learn how to engage with the Kubernetes community on the [community page](http:/
 
 You can reach the maintainers of this project at:
 
-- [Slack](https://kubernetes.slack.com/messages/sig-scheduling)
-- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-scheduling)
+* [Slack](https://kubernetes.slack.com/messages/sig-scheduling)
+* [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-scheduling)
 
 You can find an [instruction how to build and run out-of-tree plugin here](doc/develop.md) .
 
 ### Code of conduct
 
 Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
+
+### Custom notes
+
+```bash
+scp bin/kube-scheduler dizp-rpi:~/custom-scheduler/
+./kube-scheduler --config=./kube-scheduler.yaml --v=2 --secure-port=10260
+```
