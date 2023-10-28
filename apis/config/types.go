@@ -254,3 +254,17 @@ type NetworkTrafficArgs struct {
 	// TimeRangeInMinutes used to aggregate the network metrics
 	TimeRangeInMinutes int64
 }
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// ContextPrioArgs holds arguments used to configure ContextPrio plugin.
+type ContextPrioArgs struct {
+	metav1.TypeMeta
+
+	// Address of the Prometheus Server
+	Address string
+	// NetworkInterface to be monitored, assume that nodes OS is homogeneous
+	NetworkInterface string
+	// TimeRangeInMinutes used to aggregate the network metrics
+	TimeRangeInMinutes int64
+}

@@ -63,7 +63,7 @@ func (n *NetworkTraffic) Score(ctx context.Context, state *framework.CycleState,
 	klog.Infoln("annotations: ", p.Annotations, p.Labels)
 	for k, v := range p.Annotations {
 		if strings.HasPrefix(k, "v2x.context") {
-
+			klog.Infoln("[NetworkTraffic] %s", v)
 		}
 	}
 	klog.Infoln("node acutal mem: ", nodeActualMem.Value, "; node load: ", nodeLoad.Value)

@@ -5,13 +5,13 @@ import (
 )
 
 const (
-	Lowest  int = 0
-	Low         = 1
-	High        = 2
-	Highest     = 3
-	Lowest2     = 10
-	Low2        = 50
-	High2       = 80
+	Lowest  = 0
+	Low     = 1
+	High    = 2
+	Highest = 3
+	Lowest2 = 10
+	Low2    = 50
+	High2   = 80
 )
 
 var ContextPlacementMap = map[int]int{10: Lowest, 50: Low, 80: High}
@@ -23,7 +23,7 @@ func getContext(speed string) {
 		transSpeed = s
 	}
 	switch transSpeed {
-	case condition:
+	case float64(Lowest):
 
 	}
 }

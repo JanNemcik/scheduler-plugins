@@ -241,3 +241,16 @@ func SetDefaults_NetworkTrafficArgs(args *NetworkTrafficArgs) {
 		args.NetworkInterface = &netInterface
 	}
 }
+
+// SetDefaults_ContextPrioArgs sets the default parameters for the ContextPrio plugin
+func SetDefaults_ContextPrioArgs(args *ContextPrioArgs) {
+	if args.TimeRangeInMinutes == nil {
+		defaultTime := int64(5)
+		args.TimeRangeInMinutes = &defaultTime
+	}
+
+	if args.NetworkInterface == nil || *args.NetworkInterface == "" {
+		netInterface := "eth0"
+		args.NetworkInterface = &netInterface
+	}
+}

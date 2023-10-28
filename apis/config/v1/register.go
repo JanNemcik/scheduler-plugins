@@ -36,6 +36,7 @@ var (
 // addKnownTypes registers known types to the given scheme
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
+		&ContextPrioArgs{},
 		&CoschedulingArgs{},
 		&NodeResourcesAllocatableArgs{},
 		&TargetLoadPackingArgs{},
